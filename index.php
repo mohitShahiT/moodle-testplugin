@@ -1,8 +1,7 @@
 <?php
 
-use Moodle\BehatExtension\Definition\Printer\ConsoleDefinitionInformationPrinter;
-
 require_once('../../config.php');
+require_once($CFG->dirroot . '/local/testplugin/locallib.php');
 
 $context = context_system::instance();
 $PAGE->set_context($context);
@@ -14,13 +13,17 @@ $PAGE->set_heading(get_string('pluginname', 'local_testplugin'));
 
 echo $OUTPUT->header();
 
+$date = time();
+
+echo userdate($date) . '<br>';
+echo $USER->country . '<br>';
+
 if(isloggedin()){
-    echo '<h1>HELLO, ' . fullname($USER) . '</h1>';
+    echo local_greeting_get_greeting($USER);
 }
 else{
-    require_login();
+    echo get_string('greetinguser', 'local_testpugin');
+    // require_login();
 }
 
 echo $OUTPUT->footer();
-
-?>
