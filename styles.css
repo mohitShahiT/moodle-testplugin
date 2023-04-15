@@ -1,0 +1,14 @@
+
+.card-container{
+    padding: 20px;
+    display: flex;    
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    flex-direction: column;
+}
+.greeting-class{
+    color:rgb(22, 22, 22);
+}
+p{
+    color: rgb(80, 80, 80);
+}
