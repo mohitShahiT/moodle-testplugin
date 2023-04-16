@@ -33,3 +33,4 @@ $string['greetingloggedinuser_au'] = 'Hello, {$a}.';
 $string['greetingloggedinuser_es'] = 'Hola, {$a}.';
 $string['greetingloggedinuser_fj'] = 'Bula, {$a}.';
 $string['greetingloggedinuser_nz'] = 'Kia Ora, {$a}.';
+$string['yourmessage'] = 'Your message';

@@ -28,7 +28,18 @@
     }
 }}
 <div class="card-container">
-    <h2 class="greeting-class">{{message}}</h2>
+    <h2 class="greeting-class">{{greetingMessage}}</h2>
     <p>{{date}}</p>
     <p>{{country}}</p>
+    {{{form}}}
+</div>
+<div class="messages">
+{{#messages}}
+<div class= "message-container">
+    <p class = "message">{{message}}</p>
+    <p class = "time">{{time}}</p>
+</div>
+{{/messages}}
+    
+    
 </div>
