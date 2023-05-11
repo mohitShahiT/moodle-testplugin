@@ -6,13 +6,29 @@ require_once('../../config.php');
 require_once($CFG->dirroot . '/local/testplugin/lib.php');
 require_once('classes/form/message_form.php');
 
+$courseid = required_param('id', PARAM_INT);
+$course = $DB->get_record('course', ['id' => $courseid]);
+
+if (!$course = $DB->get_record('course', ['id' => $courseid])) {
+    throw new \moodle_exception('invalidcourseid');
+}
+
 $context = context_system::instance();
+$context = context_course::instance($course->id);
+
 $PAGE->set_context($context);
 // $PAGE->set_theme('classic');
 $PAGE->set_url(new moodle_url('/local/testplugin/index.php'));
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title($SITE->fullname);
 $PAGE->set_heading(get_string('pluginname', 'local_testplugin'));
+
+core_course_category::page_setup();
+// Set the competency frameworks node active in the settings navigation block.
+if ($competencyframeworksnode = $PAGE->settingsnav->find('testplugin', navigation_node::TYPE_SETTING)) {
+    $competencyframeworksnode->make_active();
+}
+
 echo $OUTPUT->header();
 
 $date = userdate(time());
@@ -46,14 +62,19 @@ else if($formData = $messageform->get_data()){
         $record = new stdClass;
         $record->message = $formMessage;
         $record->timecreated = time();
+        $record->userid = $USER->id;
 
         $DB->insert_record('local_testplugin_messages', $record);
     }
 }
 
 $messageform->set_data($toform);
-
-$messages = $DB->get_records('local_testplugin_messages');
+if($USER->username === 'admin'){
+    $messages = $DB->get_records('local_testplugin_messages');
+}
+else{
+    $messages = $DB->get_records('local_testplugin_messages', ['userid'=> $USER->id]);
+}
 foreach($messages as $msg){
     $msg->time = userdate($msg->timecreated);
 }

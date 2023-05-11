@@ -45,3 +45,16 @@ function local_testplugin_extend_navigation(global_navigation $root) {
 
     $root->add_node($node);
 }
+
+// function local_testplugin_extend_navigation_course($navigation, $course, $context) {
+//     $url = new moodle_url('/local/testplugin/index.php', array('id' => $course->id));
+//     $node = navigation_node::create(
+//         'TEST PLUGIN',
+//         $url,
+//         navigation_node::NODETYPE_LEAF,
+//         'local_testplugin',
+//         'testplugin',
+//         new pix_icon('icon', '', 'local_testplugin')
+//     );
+//     $navigation->add_node($node);
+// }
